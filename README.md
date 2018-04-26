@@ -1,5 +1,7 @@
 # Dogs
-The Problem of Dogs from Code of Duty contest
+The Problem of Dogs from Code of Duty contest.
+
+***Beware: Very performance unwise implementation using minimum remaining value to determine places for dogs.*** 
 
 **Problem Definition:**
 
