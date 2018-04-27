@@ -146,44 +146,42 @@ cout << "table is initialized...\n";
 //assign mrvs
 cout << "mrvs assigning...\n";
 for(i=0;i<dimension;i++){
+        if(i == 0){
             for(j=0;j<dimension;j++){
                 if(table[i][j]->getHas() == "O"){
-                    try{
+                    if(j==0){
                         //right
                         if(table[i][j+1]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
-                    }
-                    catch(...) {
-
-                    }
-                    try{
-                        //left
-                        if(table[i][j-1]->getHas() == "T"){
-                            table[i][j]->addMrv(5);
-                        }
-                    }
-                    catch(...) {
-
-
-                    }
-                    try{
                         //down
                         if(table[i+1][j]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
                     }
-                    catch(...) {
-
-                    }
-                    try {
-                        //up
-                        if(table[i-1][j]->getHas() == "T"){
+                    else if(j==dimension){
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //down
+                        if(table[i+1][j]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
                     }
-                    catch(...) {
-
+                    else {
+                        //right
+                        if(table[i][j+1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //down
+                        if(table[i+1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
                     }
                         table[i][j]->addMrv(columnRestriction[j]);
                         table[i][j]->addMrv(rowRestriction[i]);
@@ -191,7 +189,107 @@ for(i=0;i<dimension;i++){
                     }
 
                 }
+            }
 
+        else if(i == dimension-1){
+            for(j=0;j<dimension;j++){
+                if(table[i][j]->getHas() == "O"){
+                    if(j==0){
+                        //right
+                        if(table[i][j+1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                    else if(j==dimension){
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                    else {
+                        //right
+                        if(table[i][j+1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+
+                    table[i][j]->addMrv(columnRestriction[j]);
+                    table[i][j]->addMrv(rowRestriction[i]);
+                }
+            }
+        }
+        else{
+            for(j=0;j<dimension;j++){
+                if(table[i][j]->getHas() == "O"){
+                    if(j==0){
+                        //right
+                        if(table[i][j+1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //down
+                        if(table[i+1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                    else if(j==dimension){
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //down
+                        if(table[i+1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                    else {
+                        //right
+                        if(table[i][j+1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //down
+                        if(table[i+1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                        table[i][j]->addMrv(columnRestriction[j]);
+                        table[i][j]->addMrv(rowRestriction[i]);
+                    }
+
+                    }
+
+                }
 
     }
 cout << "Mrv of first node is " << table[0][0]->getMrv() << endl;
