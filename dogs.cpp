@@ -146,10 +146,10 @@ cout << "table is initialized...\n";
 //assign mrvs
 cout << "mrvs assigning...\n";
 for(i=0;i<dimension;i++){
-        if(i == 0){
             for(j=0;j<dimension;j++){
                 if(table[i][j]->getHas() == "O"){
                     try{
+                        //right
                         if(table[i][j+1]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
@@ -158,6 +158,7 @@ for(i=0;i<dimension;i++){
 
                     }
                     try{
+                        //left
                         if(table[i][j-1]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
@@ -167,7 +168,17 @@ for(i=0;i<dimension;i++){
 
                     }
                     try{
+                        //down
                         if(table[i+1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                    catch(...) {
+
+                    }
+                    try {
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
                     }
@@ -180,86 +191,7 @@ for(i=0;i<dimension;i++){
                     }
 
                 }
-            }
 
-        else if(i == dimension-1){
-            for(j=0;j<dimension;j++){
-                if(table[i][j]->getHas() == "O"){
-                    try{
-                        if(table[i][j+1]->getHas() == "T"){
-                            table[i][j]->addMrv(5);
-                        }
-                    }
-                    catch(...) {
-
-                    }
-                    try{
-                        if(table[i][j-1]->getHas() == "T"){
-                            table[i][j]->addMrv(5);
-                        }
-                    }
-                    catch(...) {
-
-                    }
-                    try {
-                        if(table[i-1][j]->getHas() == "T"){
-                            table[i][j]->addMrv(5);
-                        }
-                    }
-                    catch(...) {
-
-                    }
-                    table[i][j]->addMrv(columnRestriction[j]);
-                    table[i][j]->addMrv(rowRestriction[i]);
-
-
-
-                }
-            }
-        }
-        else{
-            for(j=0;j<dimension;j++){
-                if(table[i][j]->getHas() == "O"){
-                    try{
-                        if(table[i][j+1]->getHas() == "T"){
-                            table[i][j]->addMrv(5);
-                        }
-                    }
-                    catch(...) {
-
-                    }
-                    try{
-                        if(table[i][j-1]->getHas() == "T"){
-                            table[i][j]->addMrv(5);
-                        }
-                    }
-                    catch(...) {
-
-                    }
-                    try{
-                        if(table[i-1][j]->getHas() == "T"){
-                            table[i][j]->addMrv(5);
-                        }
-                    }
-                    catch(...) {
-
-                    }
-                    try {
-                        if(table[i+1][j]->getHas() == "T"){
-                            table[i][j]->addMrv(5);
-                        }
-                    }
-                    catch(...) {
-
-                    }
-
-                        table[i][j]->addMrv(columnRestriction[j]);
-                        table[i][j]->addMrv(rowRestriction[i]);
-                    }
-
-                    }
-
-                }
 
     }
 cout << "Mrv of first node is " << table[0][0]->getMrv() << endl;
