@@ -71,8 +71,8 @@ public:
     Dog() {
       _has = "D";
       _minimumRemainingValue = 0;
-      //position_x = -1;
-      //position_y = -1;
+      position_x = -1;
+      position_y = -1;
     }
 };
 
@@ -81,8 +81,8 @@ public:
     Tree() {
         _minimumRemainingValue = 0;
         _has = "T";
-        //position_x = -1;
-        //position_y = -1;
+        position_x = -1;
+        position_y = -1;
     }
 };
 
@@ -153,22 +153,35 @@ for(i=0;i<dimension;i++){
                         if(table[i][j+1]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
+                    }
+                    catch(...) {
+
+                    }
+                    try{
                         if(table[i][j-1]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
+                    }
+                    catch(...) {
+
+
+                    }
+                    try{
                         if(table[i+1][j]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
-                        table[i][j]->addMrv(columnRestriction[j]);
-                        table[i][j]->addMrv(rowRestriction[j]);
-
                     }
                     catch(...) {
-                        continue;
+
                     }
+                        table[i][j]->addMrv(columnRestriction[j]);
+                        table[i][j]->addMrv(rowRestriction[i]);
+
+                    }
+
                 }
             }
-            }
+
         else if(i == dimension-1){
             for(j=0;j<dimension;j++){
                 if(table[i][j]->getHas() == "O"){
@@ -178,7 +191,7 @@ for(i=0;i<dimension;i++){
                         }
                     }
                     catch(...) {
-                        continue;
+
                     }
                     try{
                         if(table[i][j-1]->getHas() == "T"){
@@ -186,7 +199,7 @@ for(i=0;i<dimension;i++){
                         }
                     }
                     catch(...) {
-                        continue;
+
                     }
                     try {
                         if(table[i-1][j]->getHas() == "T"){
@@ -194,10 +207,10 @@ for(i=0;i<dimension;i++){
                         }
                     }
                     catch(...) {
-                        continue;
+
                     }
                     table[i][j]->addMrv(columnRestriction[j]);
-                    table[i][j]->addMrv(rowRestriction[j]);
+                    table[i][j]->addMrv(rowRestriction[i]);
 
 
 
@@ -213,7 +226,7 @@ for(i=0;i<dimension;i++){
                         }
                     }
                     catch(...) {
-                        continue;
+
                     }
                     try{
                         if(table[i][j-1]->getHas() == "T"){
@@ -221,7 +234,7 @@ for(i=0;i<dimension;i++){
                         }
                     }
                     catch(...) {
-                        continue;
+
                     }
                     try{
                         if(table[i-1][j]->getHas() == "T"){
@@ -229,7 +242,7 @@ for(i=0;i<dimension;i++){
                         }
                     }
                     catch(...) {
-                        continue;
+
                     }
                     try {
                         if(table[i+1][j]->getHas() == "T"){
@@ -237,10 +250,11 @@ for(i=0;i<dimension;i++){
                         }
                     }
                     catch(...) {
-                        continue;
+
                     }
+
                         table[i][j]->addMrv(columnRestriction[j]);
-                        table[i][j]->addMrv(rowRestriction[j]);
+                        table[i][j]->addMrv(rowRestriction[i]);
                     }
 
                     }
@@ -248,10 +262,11 @@ for(i=0;i<dimension;i++){
                 }
 
     }
+cout << "Mrv of first node is " << table[0][0]->getMrv() << endl;
 cout << "mrvs assigned...\n";
 //choose minimum _minimumRemainingValue if there is no D in that node and its neighbours
 // we use treePositions table to determine trees' locations.
-Node* minimum;
+Node* minimum = new Tree();
 cout << "placing dogs...\n";
 int treeRow,treeColumn,minimumX,minimumY;
 for(i=0;i<numberOfTree*2;i+=2){
@@ -269,7 +284,7 @@ for(i=0;i<numberOfTree*2;i+=2){
             }
         }
         catch(...){
-            continue;
+
         }
         try{
             if(table[minimumX][minimumY-1]->getMrv() <= minimum->getMrv()){
@@ -279,7 +294,7 @@ for(i=0;i<numberOfTree*2;i+=2){
             }
         }
         catch(...){
-            continue;
+
         }
         try{
             if(table[minimumX][minimumY+1]->getMrv() <= minimum->getMrv()){
@@ -289,7 +304,7 @@ for(i=0;i<numberOfTree*2;i+=2){
             }
         }
         catch(...){
-            continue;
+
         }
         try{
             if(table[minimumX+1][minimumY]->getMrv() <= minimum->getMrv()){
@@ -299,7 +314,7 @@ for(i=0;i<numberOfTree*2;i+=2){
             }
         }
         catch(...){
-            continue;
+
         }
     }
 
