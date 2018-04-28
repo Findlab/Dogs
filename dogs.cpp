@@ -79,7 +79,7 @@ public:
 class Tree : public Node{
 public:
     Tree() {
-        _minimumRemainingValue = 0;
+        _minimumRemainingValue = 100;
         _has = "T";
         position_x = -1;
         position_y = -1;
@@ -116,15 +116,16 @@ for(j = 0;i < dimension;i++,j++){
 
 //initialize table
 cout << "table is initializing...\n";
-for(i = 0;i < dimension;i++){
+for(j = 0;j < dimension;j++){ // j refers to y
     cin >> tempTable;
-    for(j=0;j<dimension;j++){
-        if(tempTable[j] == 'O'){
+    for(i=0;i<dimension;i++){ // i refers to x
+        // from above we just need to change tempTable[i] instead of tempTable[j], the others will be same
+        if(tempTable[i] == 'O'){
             table[i][j] = new Node();
             table[i][j] -> setPositionX(i);
             table[i][j] -> setPositionY(j);
         }
-        else if(tempTable[j] == 'T'){
+        else if(tempTable[i] == 'T'){
             table[i][j] = new Tree();
             table[i][j] -> setPositionX(i);
             table[i][j] -> setPositionY(j);
@@ -132,11 +133,12 @@ for(i = 0;i < dimension;i++){
             treePositions[treeCounter+1] = j;
             treeCounter += 2;
         }
-        else if(tempTable[j] == 'D'){
+        // Since we find dogs this section will never work!
+        /*else if(tempTable[i] == 'D'){
             table[i][j] = new Dog();
             table[i][j] -> setPositionX(i);
             table[i][j] -> setPositionY(j);
-        }
+        }*/
 
     }
 
@@ -146,44 +148,42 @@ cout << "table is initialized...\n";
 //assign mrvs
 cout << "mrvs assigning...\n";
 for(i=0;i<dimension;i++){
+        if(i == 0){
             for(j=0;j<dimension;j++){
                 if(table[i][j]->getHas() == "O"){
-                    try{
+                    if(j==0){
                         //right
                         if(table[i][j+1]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
-                    }
-                    catch(...) {
-
-                    }
-                    try{
-                        //left
-                        if(table[i][j-1]->getHas() == "T"){
-                            table[i][j]->addMrv(5);
-                        }
-                    }
-                    catch(...) {
-
-
-                    }
-                    try{
                         //down
                         if(table[i+1][j]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
                     }
-                    catch(...) {
-
-                    }
-                    try {
-                        //up
-                        if(table[i-1][j]->getHas() == "T"){
+                    else if(j==dimension-1){
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //down
+                        if(table[i+1][j]->getHas() == "T"){
                             table[i][j]->addMrv(5);
                         }
                     }
-                    catch(...) {
-
+                    else {
+                        //right
+                        if(table[i][j+1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //down
+                        if(table[i+1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
                     }
                         table[i][j]->addMrv(columnRestriction[j]);
                         table[i][j]->addMrv(rowRestriction[i]);
@@ -191,67 +191,279 @@ for(i=0;i<dimension;i++){
                     }
 
                 }
+            }
 
+        else if(i == dimension-1){
+            for(j=0;j<dimension;j++){
+                if(table[i][j]->getHas() == "O"){
+                    if(j==0){
+                        //right
+                        if(table[i][j+1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                    else if(j==dimension-1){
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                    else {
+                        //right
+                        if(table[i][j+1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+
+                    table[i][j]->addMrv(columnRestriction[j]);
+                    table[i][j]->addMrv(rowRestriction[i]);
+                }
+            }
+        }
+        else{
+            for(j=0;j<dimension;j++){
+                if(table[i][j]->getHas() == "O"){
+                    if(j==0){
+                        //right
+                        if(table[i][j+1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //down
+                        if(table[i+1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                    else if(j==dimension-1){
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //down
+                        if(table[i+1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                    else {
+                        //right
+                        if(table[i][j+1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //left
+                        if(table[i][j-1]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //up
+                        if(table[i-1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                        //down
+                        if(table[i+1][j]->getHas() == "T"){
+                            table[i][j]->addMrv(5);
+                        }
+                    }
+                        table[i][j]->addMrv(columnRestriction[j]);
+                        table[i][j]->addMrv(rowRestriction[i]);
+                    }
+
+                    }
+
+                }
 
     }
 cout << "Mrv of first node is " << table[0][0]->getMrv() << endl;
 cout << "mrvs assigned...\n";
 //choose minimum _minimumRemainingValue if there is no D in that node and its neighbours
 // we use treePositions table to determine trees' locations.
-Node* minimum = new Tree();
+Node minimum;
 cout << "placing dogs...\n";
 int treeRow,treeColumn,minimumX,minimumY;
 for(i=0;i<numberOfTree*2;i+=2){
     treeRow = treePositions[i];
     treeColumn = treePositions[i+1];
-    minimum = table[treeRow][treeColumn]; //position of tree
-    minimumX = minimum->getPositionX(); // position of tree
-    minimumY = minimum->getPositionY(); //position of tree
-    for(j=0;j<dimension;j++){
-        try{
-            if(table[minimumX-1][minimumY]->getMrv() <= minimum->getMrv()){
-                minimum = table[minimumX-1][minimumY];
-                minimumX = minimum->getPositionX();
-                minimumY = minimum->getPositionY();
+    minimum = *table[treeRow][treeColumn]; //position of tree
+    minimumX = minimum.getPositionX(); // position of tree
+    minimumY = minimum.getPositionY(); //position of tree
+    if(treeRow==0){
+        if(treeColumn==0){
+            //right
+            if(table[minimumX][minimumY+1]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX][minimumY+1];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
             }
+            //down
+            if(table[minimumX+1][minimumY]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX+1][minimumY];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            table[minimumX][minimumY] = new Dog();
         }
-        catch(...){
+        else if(treeColumn == dimension-1){
+            //down
+            if(table[minimumX+1][minimumY]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX+1][minimumY];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            //left
+            if(table[minimumX][minimumY-1]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX][minimumY-1];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            table[minimumX][minimumY] = new Dog();
 
         }
-        try{
-            if(table[minimumX][minimumY-1]->getMrv() <= minimum->getMrv()){
-                minimum = table[minimumX][minimumY-1];
-                minimumX = minimum->getPositionX();
-                minimumY = minimum->getPositionY();
+        else{
+            //left
+            if(table[minimumX][minimumY-1]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX][minimumY-1];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
             }
-        }
-        catch(...){
-
-        }
-        try{
-            if(table[minimumX][minimumY+1]->getMrv() <= minimum->getMrv()){
-                minimum = table[minimumX][minimumY+1];
-                minimumX = minimum->getPositionX();
-                minimumY = minimum->getPositionY();
+            //down
+            if(table[minimumX+1][minimumY]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX+1][minimumY];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
             }
-        }
-        catch(...){
 
-        }
-        try{
-            if(table[minimumX+1][minimumY]->getMrv() <= minimum->getMrv()){
-                minimum = table[minimumX+1][minimumY];
-                minimumX = minimum->getPositionX();
-                minimumY = minimum->getPositionY();
+            //right
+            if(table[minimumX][minimumY+1]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX][minimumY+1];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
             }
-        }
-        catch(...){
-
+            table[minimumX][minimumY] = new Dog();
         }
     }
+    else if(treeRow == dimension-1){
+        if(treeColumn==0){
+            //up
+            if(table[minimumX-1][minimumY]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX-1][minimumY];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            //right
+            if(table[minimumX][minimumY+1]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX][minimumY+1];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
 
-    table[minimumX][minimumY]->setHas("D");
+            table[minimumX][minimumY] = new Dog();
+        }
+        else if(treeColumn == dimension-1){
+            //up
+            if(table[minimumX-1][minimumY]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX-1][minimumY];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            //left
+            if(table[minimumX][minimumY-1]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX][minimumY-1];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            table[minimumX][minimumY] = new Dog();
+
+        }
+        else{
+            //left
+            if(table[minimumX][minimumY-1]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX][minimumY-1];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+
+            //up
+            if(table[minimumX-1][minimumY]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX-1][minimumY];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            //right
+            if(table[minimumX][minimumY+1]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX][minimumY+1];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            table[minimumX][minimumY] = new Dog();
+        }
+    }
+    else{
+        if(treeColumn == 0){
+            //right
+            if(table[minimumX][minimumY+1]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX][minimumY+1];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            //up
+            if(table[minimumX-1][minimumY]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX-1][minimumY];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            //down
+            if(table[minimumX+1][minimumY]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX+1][minimumY];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            table[minimumX][minimumY] = new Dog();
+        }
+        else if(treeColumn == dimension-1){
+            //up
+            if(table[minimumX-1][minimumY]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX-1][minimumY];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            //down
+            if(table[minimumX+1][minimumY]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX+1][minimumY];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            //left
+            if(table[minimumX][minimumY-1]->getMrv() <= minimum.getMrv()){
+                minimum = *table[minimumX][minimumY-1];
+                minimumX = minimum.getPositionX();
+                minimumY = minimum.getPositionY();
+            }
+            table[minimumX][minimumY] = new Dog();
+        }
+    }
 }
+
 cout << "dogs placed...\n";
 
 
