@@ -296,166 +296,176 @@ cout << "Mrv of first node is " << table[0][0]->getMrv() << endl;
 cout << "mrvs assigned...\n";
 //choose minimum _minimumRemainingValue if there is no D in that node and its neighbours
 // we use treePositions table to determine trees' locations.
-Node minimum;
+
+Node* current;
+Node* minimum;
 cout << "placing dogs...\n";
-int treeRow,treeColumn,minimumX,minimumY;
+int treeRow,treeColumn,minimumX,minimumY,currentX,currentY;
 for(i=0;i<numberOfTree*2;i+=2){
     treeRow = treePositions[i];
     treeColumn = treePositions[i+1];
-    minimum = *table[treeRow][treeColumn]; //position of tree
-    minimumX = minimum.getPositionX(); // position of tree
-    minimumY = minimum.getPositionY(); //position of tree
+    current = table[treeRow][treeColumn]; //position of tree
+    currentX = current->getPositionX(); // position of tree
+    currentY = current->getPositionY(); //position of tree
     if(treeRow==0){
         if(treeColumn==0){
+            minimum = table[currentX][currentY+1];
             //right
-            if(table[minimumX][minimumY+1]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX][minimumY+1];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX][currentY+1]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX][currentY+1];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             //down
-            if(table[minimumX+1][minimumY]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX+1][minimumY];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX+1][currentY]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX+1][currentY];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
         }
         else if(treeColumn == dimension-1){
+            minimum = table[currentX][currentY-1];
             //down
-            if(table[minimumX+1][minimumY]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX+1][minimumY];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX+1][currentY]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX+1][currentY];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             //left
-            if(table[minimumX][minimumY-1]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX][minimumY-1];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX][currentY-1]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX][currentY-1];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
 
         }
         else{
+            minimum = table[currentX][currentY-1];
             //left
-            if(table[minimumX][minimumY-1]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX][minimumY-1];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX][currentY-1]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX][currentY-1];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             //down
-            if(table[minimumX+1][minimumY]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX+1][minimumY];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX+1][currentY]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX+1][currentY];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
 
             //right
-            if(table[minimumX][minimumY+1]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX][minimumY+1];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX][currentY+1]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX][currentY+1];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
         }
     }
     else if(treeRow == dimension-1){
         if(treeColumn==0){
+            minimum = table[currentX-1][currentY];
             //up
-            if(table[minimumX-1][minimumY]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX-1][minimumY];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX-1][currentY]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX-1][currentY];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             //right
-            if(table[minimumX][minimumY+1]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX][minimumY+1];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX][currentY+1]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX][currentY+1];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
 
             table[minimumX][minimumY] = new Dog();
         }
         else if(treeColumn == dimension-1){
+            minimum = table[currentX-1][currentY];
             //up
-            if(table[minimumX-1][minimumY]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX-1][minimumY];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX-1][currentY]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX-1][currentY];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             //left
-            if(table[minimumX][minimumY-1]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX][minimumY-1];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX][currentY-1]->getMrv() <= minimum->getMrv()){
+                minimum = table[minimumX][minimumY-1];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
 
         }
         else{
+            minimum = table[currentX][currentY-1];
             //left
-            if(table[minimumX][minimumY-1]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX][minimumY-1];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX][currentY-1]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX][currentY-1];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
 
             //up
-            if(table[minimumX-1][minimumY]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX-1][minimumY];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX-1][currentY]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX-1][currentY];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             //right
-            if(table[minimumX][minimumY+1]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX][minimumY+1];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX][currentY+1]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX][currentY+1];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
         }
     }
     else{
         if(treeColumn == 0){
+            minimum = table[minimumX][minimumY+1];
             //right
-            if(table[minimumX][minimumY+1]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX][minimumY+1];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX][currentY+1]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX][currentY+1];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             //up
-            if(table[minimumX-1][minimumY]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX-1][minimumY];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX-1][currentY]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX-1][currentY];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             //down
-            if(table[minimumX+1][minimumY]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX+1][minimumY];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX+1][currentY]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX+1][currentY];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
         }
         else if(treeColumn == dimension-1){
+            minimum = table[minimumX-1][minimumY];
             //up
-            if(table[minimumX-1][minimumY]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX-1][minimumY];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX-1][currentY]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX-1][currentY];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             //down
-            if(table[minimumX+1][minimumY]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX+1][minimumY];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX+1][currentY]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX+1][currentY];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             //left
-            if(table[minimumX][minimumY-1]->getMrv() <= minimum.getMrv()){
-                minimum = *table[minimumX][minimumY-1];
-                minimumX = minimum.getPositionX();
-                minimumY = minimum.getPositionY();
+            if(table[currentX][currentY-1]->getMrv() <= minimum->getMrv()){
+                minimum = table[currentX][currentY-1];
+                minimumX = minimum->getPositionX();
+                minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
         }
@@ -464,6 +474,12 @@ for(i=0;i<numberOfTree*2;i+=2){
 
 cout << "dogs placed...\n";
 
+for(i=0;i<dimension;i++){
+    for(j=0;j<dimension;j++){
+        cout << table[i][j]->getHas();
+    }
+    cout << endl;
+}
 
 return 0;
 }
