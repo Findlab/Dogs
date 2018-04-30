@@ -70,7 +70,7 @@ class Dog : public Node{
 public:
     Dog() {
       _has = "D";
-      _minimumRemainingValue = 0;
+      _minimumRemainingValue = 1000;
       position_x = -1;
       position_y = -1;
     }
@@ -79,7 +79,7 @@ public:
 class Tree : public Node{
 public:
     Tree() {
-        _minimumRemainingValue = 100;
+        _minimumRemainingValue = 1000;
         _has = "T";
         position_x = -1;
         position_y = -1;
@@ -292,7 +292,7 @@ for(i=0;i<dimension;i++){
                 }
 
     }
-cout << "Mrv of first node is " << table[0][0]->getMrv() << endl;
+
 cout << "mrvs assigned...\n";
 //choose minimum _minimumRemainingValue if there is no D in that node and its neighbours
 // we use treePositions table to determine trees' locations.
@@ -323,6 +323,11 @@ for(i=0;i<numberOfTree*2;i+=2){
                 minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
+            table[minimumX+1][minimumY+1]->addMrv(100);
+            table[minimumX+1][minimumY]->addMrv(100);
+            table[minimumX][minimumY+1]->addMrv(100);
+            cout << "Dog placed for Tree[" << currentX << "," << currentY << "]:" << minimumX << " " << minimumY << endl;
+            continue;
         }
         else if(treeColumn == dimension-1){
             minimum = table[currentX][currentY-1];
@@ -339,6 +344,11 @@ for(i=0;i<numberOfTree*2;i+=2){
                 minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
+            table[minimumX][minimumY+1]->addMrv(100);
+            table[minimumX+1][minimumY+1]->addMrv(100);
+            table[minimumX+1][minimumY]->addMrv(100);
+            cout << "Dog placed for Tree[" << currentX << "," << currentY << "]:" << minimumX << " " << minimumY << endl;
+            continue;
 
         }
         else{
@@ -363,6 +373,11 @@ for(i=0;i<numberOfTree*2;i+=2){
                 minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
+            table[minimumX+1][minimumY+1]->addMrv(100);
+            table[minimumX+1][minimumY]->addMrv(100);
+            table[minimumX][minimumY+1]->addMrv(100);
+            cout << "Dog placed for Tree[" << currentX << "," << currentY << "]:" << minimumX << " " << minimumY << endl;
+            continue;
         }
     }
     else if(treeRow == dimension-1){
@@ -382,6 +397,11 @@ for(i=0;i<numberOfTree*2;i+=2){
             }
 
             table[minimumX][minimumY] = new Dog();
+            table[minimumX+1][minimumY+1]->addMrv(100);
+            table[minimumX][minimumY+1]->addMrv(100);
+            table[minimumX+1][minimumY]->addMrv(100);
+            cout << "Dog placed for Tree[" << currentX << "," << currentY << "]:" << minimumX << " " << minimumY << endl;
+            continue;
         }
         else if(treeColumn == dimension-1){
             minimum = table[currentX-1][currentY];
@@ -398,6 +418,11 @@ for(i=0;i<numberOfTree*2;i+=2){
                 minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
+            table[minimumX+1][minimumY+1]->addMrv(100);
+            table[minimumX][minimumY+1]->addMrv(100);
+            table[minimumX+1][minimumY]->addMrv(100);
+            cout << "Dog placed for Tree[" << currentX << "," << currentY << "]:" << minimumX << " " << minimumY << endl;
+            continue;
 
         }
         else{
@@ -422,6 +447,11 @@ for(i=0;i<numberOfTree*2;i+=2){
                 minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
+            table[minimumX+1][minimumY+1]->addMrv(100);
+            table[minimumX][minimumY+1]->addMrv(100);
+            table[minimumX+1][minimumY]->addMrv(100);
+            cout << "Dog placed for Tree[" << currentX << "," << currentY << "]:" << minimumX << " " << minimumY << endl;
+            continue;
         }
     }
     else{
@@ -446,6 +476,11 @@ for(i=0;i<numberOfTree*2;i+=2){
                 minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
+            table[minimumX+1][minimumY+1]->addMrv(100);
+            table[minimumX][minimumY+1]->addMrv(100);
+            table[minimumX+1][minimumY]->addMrv(100);
+            cout << "Dog placed for Tree[" << currentX << "," << currentY << "]:" << minimumX << " " << minimumY << endl;
+            continue;
         }
         else if(treeColumn == dimension-1){
             minimum = table[minimumX-1][minimumY];
@@ -468,17 +503,27 @@ for(i=0;i<numberOfTree*2;i+=2){
                 minimumY = minimum->getPositionY();
             }
             table[minimumX][minimumY] = new Dog();
+            table[minimumX+1][minimumY+1]->addMrv(100);
+            table[minimumX][minimumY+1]->addMrv(100);
+            table[minimumX+1][minimumY]->addMrv(100);
+            cout << "Dog placed for Tree[" << currentX << "," << currentY << "]:" << minimumX << " " << minimumY << endl;
+            continue;
         }
     }
 }
 
 cout << "dogs placed...\n";
-
+int dogCounter = 0;
 for(i=0;i<dimension;i++){
     for(j=0;j<dimension;j++){
         cout << table[i][j]->getHas();
+        if(table[i][j]->getHas() == "D"){ dogCounter+=1; }
     }
     cout << endl;
+}
+
+if(dogCounter != numberOfTree){
+    cout << "NO SOLUTION FOUND!";
 }
 
 return 0;
